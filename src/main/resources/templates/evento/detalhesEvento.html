@@ -1,0 +1,90 @@
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Detalhes do Evento</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/app.css" />
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Eventos</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/listaEvento">Lista de Eventos <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/cadastrarEvento">Cadastrar Eventos</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <h1>Detalhes do Evento</h1>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p><strong>Nome:</strong><span th:text="${evento.nome}"></span></p>
+                    <p><strong>Local:</strong><span th:text="${evento.local}"></span></p>
+                    <p><strong>Data:</strong><span th:text="${evento.data}"></span></p>
+                    <p><strong>Horario:</strong><span th:text="${evento.horario}"></span></p>
+                </div>
+            </div>
+
+        <hr/>
+
+        <div class="row">
+            <div class="col-md-4">
+                <br/>
+
+                <th:block th:include="evento/mensagens/erroForm"></th:block>
+                <th:block th:include="evento/mensagens/sucessoForm"></th:block>
+                <form method="post">
+                    Nome: <input type="text" name="nomeConvidado" class="form-control" required="required"/>
+                    CPF: <input type="text" name="cpf" class="form-control" required="required" />
+                    <br/>
+                    <button type="submit" class="btn btn-success">Adicionar Convidado</button>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <h2>Lista de Convidados</h2>
+                <div class="table-reponsive" style="height: 200px;overflow: scroll;">
+                    <table class="table table-striped table-condensed">
+                        <tr>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Excluir</th>
+                        </tr>
+                        <tr th:each="convidado : ${convidados}">
+                            <td th:text="${convidado.nomeConvidado}"></td>
+                            <td th:text="${convidado.cpf}"></td>
+                            <td width="100px">
+                                <a th:href="${(#mvc.url('EC#excluirConvidado').arg(0, convidado.cpf)).build()}" class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+</body>
+</html>

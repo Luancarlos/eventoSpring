@@ -1,0 +1,11 @@
+<html mlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Erro Form</title>
+</head>
+<body>
+    <div class="alert alert-danger" role="alert" th:if="${not #strings.isEmpty(erroinput)}">
+        <span th:text="${erroinput}"></span>
+    </div>
+</body>
+</html>

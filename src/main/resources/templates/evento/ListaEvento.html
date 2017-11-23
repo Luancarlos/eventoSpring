@@ -1,0 +1,58 @@
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Lista de Eventos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Eventos</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/listaEvento">Lista de Eventos <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/cadastrarEvento">Cadastrar Eventos</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <h1>Lista de Eventos</h1>
+        <table class="table">
+            <tr>
+                <th>Nome</th>
+                <th>Local</th>
+                <th>Ações</th>
+            </tr>
+            <tr th:each="evento : ${eventos}">
+                <td th:text="${evento.nome}"></td>
+                <td th:text="${evento.local}"></td>
+                <td width="150px">
+                    <a th:href="${(#mvc.url('EC#detalheEvento').arg(0, evento.codigo)).build()}" class="btn btn-primary btn-sm" href="#">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                    </a>
+                    <a class="btn btn-default btn-sm" href="#">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a th:href="${(#mvc.url('EC#excluirEvento').arg(0, evento.codigo)).build()}" class="btn btn-danger btn-sm" href="#">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
