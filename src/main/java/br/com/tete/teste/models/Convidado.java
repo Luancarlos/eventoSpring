@@ -1,10 +1,13 @@
 package br.com.tete.teste.models;
 
-import org.hibernate.validator.constraints.NotEmpty;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 
 
 @Entity

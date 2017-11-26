@@ -1,9 +1,12 @@
 package br.com.tete.teste.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,8 +18,8 @@ public class Evento implements Serializable {
 
     private long codigo;
 
-    @OneToMany
-    private List<Convidado> convidado;
+    @OneToMany()
+    private List<Convidado> convidado = new ArrayList<>();
 
     // não pode ser nulo
     @NotEmpty

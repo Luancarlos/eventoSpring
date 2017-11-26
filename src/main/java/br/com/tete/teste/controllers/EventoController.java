@@ -4,6 +4,7 @@ import br.com.tete.teste.models.Convidado;
 import br.com.tete.teste.models.Evento;
 import br.com.tete.teste.repository.ConvidadoRepository;
 import br.com.tete.teste.repository.EventoRepository;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.awt.*;
+import java.sql.SQLDataException;
+import java.sql.SQLException;
 
 @Controller
 public class EventoController {
@@ -56,12 +59,18 @@ public class EventoController {
     public String excluirEvento(@PathVariable("codigo") long codigo){
         Evento evento = er.findByCodigo(codigo);
         er.delete(evento);
+
         return "redirect:/listaEvento";
     }
     @RequestMapping("/deletarConvidado/{cpf}")
     public String excluirConvidado(@PathVariable("cpf") String cpf){
         Convidado convidado = cr.findByCpf(cpf);
-        cr.delete(convidado);
+        try{
+            cr.delete(convidado);
+        }catch (HibernateException e){
+            System.out.println(e);
+        }
+
         Evento evento = convidado.getEvento();
         return "redirect:/detalhesEvento/"+evento.getCodigo();
     }
